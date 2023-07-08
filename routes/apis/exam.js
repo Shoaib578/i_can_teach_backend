@@ -3,6 +3,8 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const Exam = require('../../models/exam');
 const SubExam = require('../../models/SubExam');
+const UserExamHistory = require('../../models/UserExamsHistory');
+const ObjectId = require('mongoose').Types.ObjectId
 
 router.post('/add_exam',(req,res)=>{
     const exam_title = req.body.title
@@ -55,6 +57,28 @@ SubExam.find({exam_id:id})
         "data":data
     })
 })
+})
+
+router.get('/get_exam_history',(req,res)=>{
+    const user_id =new ObjectId(req.query.user_id)
+    UserExamHistory.aggregate([
+        {
+            $match:{user_id:user_id}
+        },
+        {
+            $lookup:{
+                from:"subexams",
+                localField:"sub_exam_id",
+                foreignField:"_id",
+                as:"exam"
+            }
+        }
+    ])
+    .then(data=>{
+        res.json({
+            "data":data
+        })
+    })
 })
 
 

@@ -29,7 +29,11 @@ const sub_exam = require('./routes/apis/sub_exam')
 
 app.use('/apis/sub_exam',sub_exam)
 
+const question = require('./routes/apis/question')
+app.use('/apis/question',question)
 
+const answer = require('./routes/apis/answer')
+app.use('/apis/answer',answer)
 
 const PORT = 5000
 app.listen(PORT, () => {

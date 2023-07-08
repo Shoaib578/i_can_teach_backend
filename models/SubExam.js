@@ -15,11 +15,14 @@ exam_id:{
 total_score:{
     type:Number,
     
+},
+time:{
+    type:Number
 }
 
 
 })
 
-const SubExam = mongoose.model('SubExamSchema', SubExamSchema);
+const SubExam = mongoose.model('SubExam', SubExamSchema);
 
 module.exports = SubExam;
